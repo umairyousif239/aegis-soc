@@ -3,3 +3,6 @@ uvicorn
 python-dotenv
 google-generativeai
 httpx
+aiosqlite
+databases
+sqlalchemy
