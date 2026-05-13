@@ -1,10 +1,18 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-from backend.routes.agents import router as agents_router
 import os
 
+from backend.routes.agents import router as agents_router
+from backend.services.database import init_db
+
 load_dotenv()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_db()
+    yield
 
 app = FastAPI(title="AEGIS - AI Agent Governance & Intelligence System")
 

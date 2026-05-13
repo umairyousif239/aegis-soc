@@ -48,6 +48,7 @@ async def send_to_agent(agent_id: str, message: str, user_id: str = "user"):
             headers={
                 "Authorization": f"Bearer {GEMINI_API_KEY}",
                 "Content-Type": "application/json",
+                "Accept-Encoding": "identity",
                 "X-Lobstertrap-Agent-Id": agent_id,
                 "X-Lobstertrap-User-Id": user_id,
                 "X-Lobstertrap-Declared-Intent": "user_query"
