@@ -4,8 +4,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import os
 
-from backend.routes.audit import router as audit_router
 from backend.routes.agents import router as agents_router
+from backend.routes.audit import router as audit_router
+from backend.routes.redteam import router as redteam_router
 from backend.services.database import init_db
 
 load_dotenv()
@@ -25,8 +26,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(audit_router, prefix="/audit")
 app.include_router(agents_router, prefix="/agents")
+app.include_router(audit_router, prefix="/audit")
+app.include_router(redteam_router, prefix="/redteam")
 
 @app.get("/")
 def root():
