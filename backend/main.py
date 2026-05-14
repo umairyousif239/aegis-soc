@@ -1,7 +1,8 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+import asyncio
 import os
 
 from backend.routes.agents import router as agents_router
@@ -11,12 +12,17 @@ from backend.services.database import init_db
 
 load_dotenv()
 
+connected_clients = []
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await init_db()
     yield
 
-app = FastAPI(title="AEGIS - AI Agent Governance & Intelligence System")
+app = FastAPI(
+    title="AEGIS - AI Agent Governance & Intelligence System",
+    lifespan=lifespan
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -41,3 +47,16 @@ def health():
         "lobstertrap": os.getenv("LOBSTERTRAP_URL"),
         "gemini": "configured" if os.getenv("GEMINI_API_KEY") else "missing"
     }
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    connected_clients.append(websocket)
+    try:
+        while True:
+            await asyncio.sleep(1)
+    except Exception:
+        pass
+    finally:
+        if websocket in connected_clients:
+            connected_clients.remove(websocket)

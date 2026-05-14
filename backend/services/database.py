@@ -25,6 +25,17 @@ async def init_db():
         """)
         await db.commit()
 
+async def broadcast_event(event: dict):
+    from backend.main import connected_clients
+    dead = []
+    for client in connected_clients:
+        try:
+            await client.send_text(json.dumps(event))
+        except Exception:
+            dead.append(client)
+    for d in dead:
+        connected_clients.remove(d)
+
 async def log_interaction(agent_id, user_id, message, reply, security_meta={}):
     ingress = security_meta.get("ingress", {})
     detected = ingress.get("detected", {})
@@ -46,6 +57,15 @@ async def log_interaction(agent_id, user_id, message, reply, security_meta={}):
             json.dumps(security_meta)
         ))
         await db.commit()
+        await broadcast_event({
+            "type": "new_interaction",
+            "agent_id": agent_id,
+            "verdict": security_meta.get("verdict", "ALLOW"),
+            "risk_score": detected.get("risk_score", 0),
+            "intent": detected.get("intent_category", "general"),
+            "blocked": 1 if security_meta.get("verdict") == "DENY" else 0,
+            "timestamp": datetime.now(UTC).isoformat()
+        })
 
 async def get_audit_logs(limit=100):
     async with aiosqlite.connect(DB_PATH) as db:
@@ -62,7 +82,7 @@ async def get_stats():
         async with db.execute("""
             SELECT
                 COUNT(*) as total,
-                SUM(blocked) as total,
+                SUM(blocked) as blocked,
                 AVG(risk_score) as avg_risk,
                 COUNT(DISTINCT agent_id) as active_agents
             FROM audit_logs
