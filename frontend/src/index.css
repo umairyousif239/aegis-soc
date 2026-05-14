@@ -1,13 +1,53 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --bg-primary: #080c10;
+  --bg-secondary: #0d1117;
+  --bg-card: #111820;
+  --bg-hover: #1a2332;
+  --border: #1e2d3d;
+  --border-bright: #2d4a6a;
+  --text-primary: #cdd9e5;
+  --text-secondary: #768390;
+  --text-dim: #444c56;
+  --accent-blue: #4d9de0;
+  --accent-green: #3fb950;
+  --accent-red: #f85149;
+  --accent-orange: #e3b341;
+  --accent-purple: #bc8cff;
+  --glow-green: 0 0 20px rgba(63, 185, 80, 0.3);
+  --glow-red: 0 0 20px rgba(248, 81, 73, 0.3);
+  --glow-blue: 0 0 20px rgba(77, 157, 224, 0.3);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-bright);
+  border-radius: 2px;
+}
+
+.mono {
+  font-family: 'Share Tech Mono', monospace;
 }

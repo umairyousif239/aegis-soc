@@ -1,0 +1,120 @@
+.live-feed {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+}
+
+.panel-title {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--accent-blue);
+}
+
+.event-count {
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.feed-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.feed-empty {
+  padding: 40px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.feed-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+
+.feed-item:hover {
+  background: var(--bg-hover);
+}
+
+.feed-item.fresh {
+  animation: flashIn 0.5s ease;
+}
+
+.feed-item.blocked {
+  border-left: 2px solid var(--accent-red);
+}
+
+.feed-item.allowed {
+  border-left: 2px solid var(--accent-green);
+}
+
+@keyframes flashIn {
+  from {
+    background: rgba(77, 157, 224, 0.15);
+  }
+  to {
+    background: transparent;
+  }
+}
+
+.feed-left, .feed-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.verdict-badge {
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+
+.verdict-badge.deny {
+  background: rgba(248, 81, 73, 0.15);
+  color: var(--accent-red);
+  border: 1px solid rgba(248, 81, 73, 0.3);
+}
+
+.verdict-badge.allow {
+  background: rgba(63, 185, 80, 0.1);
+  color: var(--accent-green);
+  border: 1px solid rgba(63, 185, 80, 0.2);
+}
+
+.feed-agent {
+  font-size: 11px;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+}
+
+.risk-score {
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.risk-score.high-risk {
+  color: var(--accent-orange);
+}
+
+.feed-time {
+  font-size: 10px;
+  color: var(--text-dim);
+}
