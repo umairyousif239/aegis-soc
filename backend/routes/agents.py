@@ -14,7 +14,7 @@ class ChatRequest(BaseModel):
 def get_agents():
     return {"agents": AGENTS}
 
-@router.post("/api/v1/{agent_id}/chat")
+@router.post("/{agent_id}/chat")
 async def chat_with_agent(agent_id: str, request: ChatRequest):
     result = await send_to_agent(agent_id, request.message, request.user_id)
     await log_interaction(

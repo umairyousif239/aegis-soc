@@ -31,9 +31,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(agents_router, prefix="/agents")
-app.include_router(audit_router, prefix="/audit")
-app.include_router(redteam_router, prefix="/redteam")
+app.include_router(agents_router, prefix="/api/v1/agents")
+app.include_router(audit_router, prefix="/api/v1/audit")
+app.include_router(redteam_router, prefix="/api/v1/redteam")
 
 @app.get("/")
 def root():
