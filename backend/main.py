@@ -43,7 +43,6 @@ def root():
 def health():
     return {
         "status": "ok",
-        "lobstertrap": os.getenv("LOBSTERTRAP_URL"),
         "gemini": "configured" if os.getenv("GEMINI_API_KEY") else "missing"
     }
 
