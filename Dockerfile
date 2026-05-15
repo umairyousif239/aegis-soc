@@ -1,8 +1,9 @@
 # Stage 1: Build Lobster Trap binary
 FROM golang:1.22-alpine AS lobster-builder
+RUN apk add --no-cache git make
 WORKDIR /build
-COPY lobstertrap/ .
-RUN go build -o lobstertrap .
+RUN git clone https://github.com/coal/lobstertrap.git .
+RUN make build
 
 # Stage 2: Final image
 FROM python:3.11-slim
@@ -10,7 +11,7 @@ WORKDIR /app
 
 # Copy Lobster Trap binary and config
 COPY --from=lobster-builder /build/lobstertrap /app/lobstertrap/lobstertrap
-COPY lobstertrap/configs/ /app/lobstertrap/configs/
+COPY --from=lobster-builder /build/configs/ /app/lobstertrap/configs/
 
 # Install Python dependencies
 COPY requirements.txt .

@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import Dashboard from "./components/Dashboard";
 import "./App.css";
 
-const WS_URL = "ws://localhost:8000/ws";
-const API_URL = "http://localhost:8000";
+const WS_URL = (process.env.REACT_APP_API_URL || "http://localhost:8000").replace("http", "ws") + "/ws";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 function App() {
   const [events, setEvents] = useState([]);
