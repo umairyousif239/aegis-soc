@@ -3,6 +3,8 @@ import json
 import os
 from datetime import datetime, UTC
 
+from backend.state import connected_clients
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DB_PATH = os.path.join(BASE_DIR, "data/aegis.db")
 
@@ -26,7 +28,6 @@ async def init_db():
         await db.commit()
 
 async def broadcast_event(event: dict):
-    from backend.main import connected_clients
     dead = []
     for client in connected_clients:
         try:

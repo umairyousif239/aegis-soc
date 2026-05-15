@@ -9,10 +9,9 @@ from backend.routes.agents import router as agents_router
 from backend.routes.audit import router as audit_router
 from backend.routes.redteam import router as redteam_router
 from backend.services.database import init_db
+from backend.state import connected_clients
 
 load_dotenv()
-
-connected_clients = []
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
