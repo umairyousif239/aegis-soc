@@ -53,10 +53,11 @@
 }
 
 .agent-name {
+  font-family: var(--font-headline);
   font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-headline);
   letter-spacing: 1px;
 }
 
@@ -163,7 +164,7 @@
   color: var(--text-primary);
   padding: 8px 12px;
   font-size: 12px;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   border-radius: 2px;
   outline: none;
   transition: border-color 0.2s;
@@ -187,7 +188,7 @@
   cursor: pointer;
   border-radius: 2px;
   transition: opacity 0.2s;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
 }
 
 .send-btn:hover {

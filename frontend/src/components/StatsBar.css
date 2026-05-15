@@ -11,7 +11,7 @@
   padding: 16px 24px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   transition: background 0.2s;
 }
 
@@ -19,20 +19,27 @@
   background: var(--bg-hover);
 }
 
+/* Numbers — Sora with tabular figures */
 .stat-value {
+  font-family: var(--font-headline);
+  font-variant-numeric: tabular-nums;
   font-size: 28px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1;
 }
 
+/* Labels — DM Sans */
 .stat-label {
+  font-family: var(--font-ui);
   font-size: 9px;
+  font-weight: 500;
   letter-spacing: 2px;
+  text-transform: uppercase;
   color: var(--text-secondary);
 }
 
-.stat-blue .stat-value { color: var(--accent-blue); }
-.stat-red .stat-value { color: var(--accent-red); }
+.stat-blue   .stat-value { color: var(--accent-blue); }
+.stat-red    .stat-value { color: var(--accent-red); }
 .stat-orange .stat-value { color: var(--accent-orange); }
 .stat-purple .stat-value { color: var(--accent-purple); }
-.stat-green .stat-value { color: var(--accent-green); }
+.stat-green  .stat-value { color: var(--accent-green); }

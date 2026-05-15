@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
-  height: 64px;
+  height: 60px;
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border);
   position: sticky;
@@ -18,41 +18,49 @@
 }
 
 .logo-icon {
-  font-size: 28px;
-  color: var(--accent-blue);
-  filter: drop-shadow(var(--glow-blue));
+  font-size: 26px;
+  color: var(--accent-cyan);
+  filter: drop-shadow(var(--glow-cyan));
 }
 
+/* Wordmark — Fraunces */
 .logo-name {
   display: block;
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-wordmark);
   font-size: 22px;
   font-weight: 700;
-  letter-spacing: 6px;
+  letter-spacing: 4px;
   color: var(--text-primary);
   line-height: 1;
 }
 
+/* Sub label — DM Sans */
 .logo-sub {
   display: block;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-ui);
   font-size: 9px;
-  letter-spacing: 3px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
   color: var(--text-secondary);
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
+/* Meta items — DM Sans */
 .header-meta {
   display: flex;
   align-items: center;
   gap: 24px;
+  font-family: var(--font-ui);
   font-size: 11px;
+  font-weight: 500;
   letter-spacing: 1px;
   color: var(--text-secondary);
 }
 
 .accent-green { color: var(--accent-green); }
-.accent-blue { color: var(--accent-blue); }
+.accent-blue  { color: var(--accent-blue); }
+.accent-cyan  { color: var(--accent-cyan); }
 
 .ws-status {
   display: flex;

@@ -84,7 +84,7 @@
 }
 
 .attack-name {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-headline);
   font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
