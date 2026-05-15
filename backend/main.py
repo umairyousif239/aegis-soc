@@ -39,7 +39,7 @@ app.include_router(redteam_router, prefix="/redteam")
 def root():
     return {"status": "Pantheon backend is online"}
 
-@app.get("/healthz")
+@app.get("/api/v1/status")
 def health():
     return {
         "status": "ok",
