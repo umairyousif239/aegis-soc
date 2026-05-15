@@ -22,7 +22,7 @@ function AgentPanel({ apiUrl, onRefresh, fullWidth }) {
     setLoading(true);
 
     try {
-      const res = await fetch(`${apiUrl}/agents/${activeAgent}/chat`, {
+      const res = await fetch(`${apiUrl}/api/v1/agents/${activeAgent}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMsg })

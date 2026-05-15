@@ -51,7 +51,7 @@ function RedTeam({ apiUrl, onRefresh }) {
 
     try {
       const res = await fetch(
-        `${apiUrl}/redteam/attack/${selectedAttack}?agent_id=${selectedAgent}`,
+        `${apiUrl}/api/v1/redteam/attack/${selectedAttack}?agent_id=${selectedAgent}`,
         { method: "POST" }
       );
       const data = await res.json();
@@ -239,8 +239,8 @@ function RedTeam({ apiUrl, onRefresh }) {
 }
 
 RedTeam.propTypes = {
-    apiUrl: PropTypes.bool.isRequired,
-    onRefresh: PropTypes.bool.isRequired,
+    apiUrl: PropTypes.string.isRequired,
+    onRefresh: PropTypes.func.isRequired,
 }
 
 export default RedTeam;

@@ -32,11 +32,11 @@ ATTACKS = {
     }
 }
 
-@router.get("/attacks")
+@router.get("/api/v1/attacks")
 def get_attacks():
     return {"attacks": ATTACKS}
 
-@router.post("/attack/{attack_id}")
+@router.post("/api/v1/attack/{attack_id}")
 async def run_attack(attack_id: str, agent_id: str = "financebot"):
     attack = ATTACKS.get(attack_id)
     if not attack:

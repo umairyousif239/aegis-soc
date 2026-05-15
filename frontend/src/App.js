@@ -2,8 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import Dashboard from "./components/Dashboard";
 import "./App.css";
 
-const WS_URL = (process.env.REACT_APP_API_URL || "http://localhost:8000").replace("http", "ws") + "/ws";
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
+const WS_URL = API_URL.startsWith("https")
+  ? API_URL.replace("https", "wss")
+  : API_URL.replace("http", "ws");
+
+const FINAL_WS_URL = `${WS_URL}/api/v1/ws`;
 
 function LoadingScreen({ status }) {
   return (
@@ -115,7 +120,7 @@ function App() {
   useEffect(() => {
     if (!ready) return;
     const connect = () => {
-      const ws = new WebSocket(WS_URL);
+      const ws = new WebSocket(FINAL_WS_URL);
       wsRef.current = ws;
       ws.onopen = () => setConnected(true);
       ws.onclose = () => {
