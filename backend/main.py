@@ -37,7 +37,7 @@ app.include_router(redteam_router, prefix="/redteam")
 
 @app.get("/")
 def root():
-    return {"status": "AEGIS backend online"}
+    return {"status": "Pantheon backend is online"}
 
 @app.get("/health")
 def health():
