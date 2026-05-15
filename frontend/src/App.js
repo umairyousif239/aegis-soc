@@ -98,7 +98,7 @@ function App() {
       setLoadingStatus(messages[Math.min(attempts, messages.length - 1)]);
       attempts++;
       try {
-        const res = await fetch(`${API_URL}/health`);
+        const res = await fetch(`${API_URL}/healthz`);
         if (res.ok) {
           setLoadingStatus("SYSTEMS ONLINE");
           setTimeout(() => setReady(true), 600);
