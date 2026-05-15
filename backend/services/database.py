@@ -5,8 +5,10 @@ from datetime import datetime, UTC
 
 from backend.state import connected_clients
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-DB_PATH = os.path.join(BASE_DIR, "data/aegis.db")
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# DB_PATH = os.path.join(BASE_DIR, "data/aegis.db")
+
+DB_PATH = "/tmp/pantheon.db"
 
 async def init_db():
     async with aiosqlite.connect(DB_PATH) as db:
