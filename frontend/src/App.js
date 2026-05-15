@@ -145,13 +145,13 @@ function App() {
   }, [ready]);
 
   const fetchStats = async () => {
-    const res = await fetch(`${API_URL}/audit/stats`);
+    const res = await fetch(`${API_URL}/api/v1/audit/stats`);
     const data = await res.json();
     setStats(data);
   };
 
   const fetchLogs = async () => {
-    const res = await fetch(`${API_URL}/audit/logs?limit=50`);
+    const res = await fetch(`${API_URL}/api/v1/audit/logs?limit=50`);
     const data = await res.json();
     setLogs(data.logs || []);
   };
