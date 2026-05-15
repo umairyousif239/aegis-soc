@@ -19,13 +19,13 @@ async def lifespan(app: FastAPI):
     yield
 
 app = FastAPI(
-    title="AEGIS - AI Agent Governance & Intelligence System",
+    title="Pantheon - AI Agent Governance & Intelligence System",
     lifespan=lifespan
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["https://pantheon.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
