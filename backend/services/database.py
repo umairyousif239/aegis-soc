@@ -11,6 +11,7 @@ from backend.state import connected_clients
 DB_PATH = "/tmp/pantheon.db"
 
 async def init_db():
+    os.makedirs("/tmp", exist_ok=True)
     async with aiosqlite.connect(DB_PATH) as db:
         await db.execute("""
             CREATE TABLE IF NOT EXISTS audit_logs (
