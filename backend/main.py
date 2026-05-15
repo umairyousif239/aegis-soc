@@ -25,7 +25,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://pantheon.vercel.app"],
+    allow_origins=["https://pantheon-oo1b.vercel.app/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
