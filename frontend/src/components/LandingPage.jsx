@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
 
 const FEATURES = [
@@ -48,6 +49,8 @@ const STATS = [
 ];
 
 export default function LandingPage({ onEnter }) {
+  const navigate = useNavigate();
+
   return (
     <div className="landing">
       {/* Nav */}
@@ -59,6 +62,7 @@ export default function LandingPage({ onEnter }) {
         <div className="nav-links">
           <a href="#features">Features</a>
           <a href="#how-it-works">How It Works</a>
+          <a href="/pricing" onClick={(e) => { e.preventDefault(); navigate("/pricing"); }}>Pricing</a>
           <button className="nav-cta" onClick={onEnter}>Launch SOC →</button>
         </div>
       </nav>
@@ -121,7 +125,8 @@ export default function LandingPage({ onEnter }) {
           </div>
         </div>
         <p className="pipeline-note mono">
-          Every request inspected for injection patterns, exfiltration attempts, intent mismatch, and PII extraction — before reaching the model.
+          Every request inspected for injection patterns, exfiltration attempts, intent mismatch,
+          and PII extraction — before reaching the model.
         </p>
       </section>
 
@@ -146,17 +151,35 @@ export default function LandingPage({ onEnter }) {
         <h2 className="cta-title">
           The enterprise AI attack surface<br />is growing. Start watching it.
         </h2>
-        <button className="btn-primary btn-large" onClick={onEnter}>
-          Launch Pantheon →
-        </button>
+        <div style={{ display: "flex", gap: "16px", justifyContent: "center", alignItems: "center" }}>
+          <button className="btn-primary btn-large" onClick={onEnter}>
+            Launch Pantheon →
+          </button>
+          <button
+            className="btn-ghost btn-large"
+            onClick={() => navigate("/pricing")}
+            style={{ padding: "18px 32px" }}
+          >
+            View Pricing
+          </button>
+        </div>
       </section>
 
       {/* Footer */}
       <footer className="landing-footer">
         <span className="wordmark-text" style={{ fontSize: "14px", letterSpacing: "3px" }}>PANTHEON</span>
-        <span className="mono" style={{ fontSize: "11px", color: "var(--text-dim)" }}>
-          Built with Gemini 2.5 Flash + Veea Lobster Trap · TechEx Hackathon 2025
-        </span>
+        <div style={{ display: "flex", gap: "32px", alignItems: "center" }}>
+          
+            href="/pricing"
+            onClick={(e) => { e.preventDefault(); navigate("/pricing"); }}
+            style={{ fontFamily: "var(--font-ui)", fontSize: "12px", color: "var(--text-secondary)", textDecoration: "none" }}
+          <a>
+            Pricing
+          </a>
+          <span className="mono" style={{ fontSize: "11px", color: "var(--text-dim)" }}>
+            Built with Gemini 2.5 Flash + Veea Lobster Trap · TechEx Hackathon 2025
+          </span>
+        </div>
       </footer>
     </div>
   );

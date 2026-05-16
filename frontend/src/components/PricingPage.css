@@ -1,0 +1,214 @@
+.pricing-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.pricing-hero {
+  text-align: center;
+  padding: 80px 64px 60px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.pricing-title {
+  font-family: var(--font-headline);
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 16px 0 20px;
+}
+
+.pricing-sub {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Plans */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 64px 80px;
+}
+
+.plan-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.plan-card.popular {
+  border-color: var(--accent-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+.plan-card.accent-blue:hover  { border-color: var(--accent-blue); }
+.plan-card.accent-cyan:hover  { border-color: var(--accent-cyan); }
+.plan-card.accent-purple:hover { border-color: var(--accent-purple); }
+
+.popular-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-cyan);
+  color: #080c10;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding: 4px 16px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.plan-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.plan-name {
+  font-family: var(--font-wordmark);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+}
+
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.price-amount {
+  font-family: var(--font-headline);
+  font-variant-numeric: tabular-nums;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.price-period {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.plan-desc {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.plan-cta {
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cta-primary {
+  background: var(--accent-cyan);
+  color: #080c10;
+  border: none;
+  box-shadow: var(--glow-cyan);
+}
+
+.cta-primary:hover { opacity: 0.85; }
+
+.cta-ghost {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-bright);
+}
+
+.cta-ghost:hover {
+  border-color: var(--text-secondary);
+  background: var(--bg-hover);
+}
+
+.plan-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feature-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.feature-check {
+  font-size: 13px;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+
+.feature-text {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* FAQ */
+.faq-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 64px;
+  border-top: 1px solid var(--border);
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+.faq-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.faq-q {
+  font-family: var(--font-headline);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.faq-a {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Bottom CTA */
+.pricing-cta {
+  text-align: center;
+  padding: 80px 64px 100px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}

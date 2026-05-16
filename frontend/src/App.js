@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import LandingPage from "./components/LandingPage";
+import PricingPage from "./components/PricingPage";
 import "./App.css";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
@@ -132,6 +133,7 @@ function AppInner() {
           onRefresh={() => { fetchStats(); fetchLogs(); }}
         />
       } />
+      <Route path="/pricing" element={<PricingPage />} />
     </Routes>
   );
 }
