@@ -218,7 +218,7 @@
   vertical-align: middle;
 }
 
-.log-table tr:hover td { background: var(--bg-hover); }
+.log-table tr:hover td { background: var(--bg-surface); }
 
 .row-blocked { border-left: 2px solid var(--accent-red); }
 .row-allowed { border-left: 2px solid transparent; }
@@ -276,3 +276,25 @@
 
 .export-btn:hover { background: rgba(63, 185, 80, 0.1); }
 .export-btn.exporting { opacity: 0.5; cursor: not-allowed; }
+/* Row hover states */
+.log-table tbody tr {
+  transition: background 0.15s;
+  cursor: default;
+}
+
+.log-table tbody tr:hover {
+  background: var(--bg-surface) !important;
+}
+
+.log-table tbody tr:hover td {
+  border-bottom-color: var(--border-bright);
+}
+
+/* Better empty state */
+.empty-row td {
+  padding: 48px 24px !important;
+  text-align: center;
+  color: var(--text-dim) !important;
+  font-size: 11px !important;
+  letter-spacing: 3px;
+}

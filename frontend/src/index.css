@@ -10,12 +10,14 @@
   /* Backgrounds */
   --bg-primary: #080c10;
   --bg-secondary: #0d1117;
+  --bg-surface: #0f1520;
   --bg-card: #111820;
   --bg-hover: #1a2332;
 
-  /* Borders */
-  --border: #1e2d3d;
-  --border-bright: #2d4a6a;
+  /* Borders — sophisticated rgba approach */
+  --border: rgba(255,255,255,0.06);
+  --border-bright: rgba(255,255,255,0.12);
+  --border-accent: rgba(57,208,216,0.25);
 
   /* Text */
   --text-primary: #cdd9e5;
@@ -29,12 +31,13 @@
   --accent-orange: #e3b341;
   --accent-purple: #bc8cff;
   --accent-cyan: #39d0d8;
+  --accent-cyan-dim: rgba(57,208,216,0.45);
 
   /* Glows */
-  --glow-green: 0 0 20px rgba(63, 185, 80, 0.3);
-  --glow-red: 0 0 20px rgba(248, 81, 73, 0.3);
-  --glow-blue: 0 0 20px rgba(77, 157, 224, 0.3);
-  --glow-cyan: 0 0 20px rgba(57, 208, 216, 0.3);
+  --glow-green: 0 0 20px rgba(63,185,80,0.25);
+  --glow-red: 0 0 20px rgba(248,81,73,0.25);
+  --glow-blue: 0 0 20px rgba(77,157,224,0.25);
+  --glow-cyan: 0 0 20px rgba(57,208,216,0.25);
 
   /* Font families */
   --font-wordmark: 'Fraunces', serif;
@@ -52,19 +55,16 @@ body {
   overflow-x: hidden;
 }
 
-/* Typography helpers */
 .font-wordmark { font-family: var(--font-wordmark); }
 .font-headline  { font-family: var(--font-headline); }
 .font-ui        { font-family: var(--font-ui); }
 .mono           { font-family: var(--font-mono); }
 
-/* Tabular numbers for data/stats */
 .tabular {
   font-family: var(--font-headline);
   font-variant-numeric: tabular-nums;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg-secondary); }
-::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }

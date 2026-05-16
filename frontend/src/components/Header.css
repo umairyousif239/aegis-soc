@@ -1,51 +1,9 @@
-.threat-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 10px;
-  letter-spacing: 2px;
-  padding: 5px 12px;
-  border: 1px solid;
-  border-radius: 2px;
-  font-weight: 600;
-}
-
-.threat-pulse {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.threat-critical .threat-pulse {
-  animation: pulse-fast 0.6s infinite;
-  box-shadow: 0 0 8px #f85149;
-}
-
-.threat-high .threat-pulse {
-  animation: pulse 1s infinite;
-  box-shadow: 0 0 6px #e3b341;
-}
-
-.threat-elevated .threat-pulse {
-  animation: pulse 1.5s infinite;
-}
-
-.threat-low .threat-pulse {
-  animation: pulse 2.5s infinite;
-}
-
-@keyframes pulse-fast {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.3; transform: scale(0.8); }
-}
-
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
-  height: 60px;
+  height: 58px;
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border);
   position: sticky;
@@ -60,52 +18,84 @@
 }
 
 .logo-icon {
-  font-size: 26px;
+  font-size: 24px;
   color: var(--accent-cyan);
-  filter: drop-shadow(var(--glow-cyan));
+  filter: drop-shadow(0 0 8px rgba(57,208,216,0.4));
 }
 
 .logo-name {
   display: block;
   font-family: var(--font-wordmark);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
-  letter-spacing: 4px;
+  letter-spacing: 3px;
   color: var(--text-primary);
   line-height: 1;
 }
 
 .logo-sub {
   display: block;
-  font-family: var(--font-ui);
-  font-size: 9px;
+  font-family: var(--font-mono);
+  font-size: 8px;
   font-weight: 500;
-  letter-spacing: 2.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: var(--text-dim);
   margin-top: 3px;
 }
+
+.header-right { display: flex; align-items: center; }
 
 .header-meta {
   display: flex;
   align-items: center;
-  gap: 24px;
-  font-family: var(--font-ui);
-  font-size: 11px;
+  gap: 20px;
+  font-family: var(--font-mono);
+  font-size: 10px;
   font-weight: 500;
   letter-spacing: 1px;
   color: var(--text-secondary);
 }
 
+.threat-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 5px 14px;
+  border: 1px solid;
+  border-radius: 3px;
+  font-weight: 700;
+}
+
+.threat-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.threat-critical .threat-pulse {
+  animation: pulse-fast 0.6s infinite;
+  box-shadow: 0 0 8px #f85149;
+}
+.threat-high .threat-pulse { animation: pulse 1s infinite; box-shadow: 0 0 6px #e3b341; }
+.threat-elevated .threat-pulse { animation: pulse 1.5s infinite; }
+.threat-low .threat-pulse { animation: pulse 2.5s infinite; }
+
+@keyframes pulse-fast {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+.meta-item { display: flex; align-items: center; gap: 5px; }
+
 .accent-green { color: var(--accent-green); }
 .accent-blue  { color: var(--accent-blue); }
 .accent-cyan  { color: var(--accent-cyan); }
 
-.ws-status {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+.ws-status { display: flex; align-items: center; gap: 6px; }
 
 .status-dot {
   width: 6px;
@@ -116,7 +106,7 @@
 
 .connected .status-dot {
   background: var(--accent-green);
-  box-shadow: var(--glow-green);
+  box-shadow: 0 0 8px rgba(63,185,80,0.5);
   animation: pulse 2s infinite;
 }
 

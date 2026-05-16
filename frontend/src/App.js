@@ -64,7 +64,16 @@ function AppInner() {
   const [logs, setLogs] = useState([]);
   const [connected, setConnected] = useState(false);
   const wsRef = useRef(null);
+  const mountedRef = useRef(true);
   const navigate = useNavigate();
+
+  // Track mount state for leak prevention
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     let attempts = 0;
@@ -76,17 +85,21 @@ function AppInner() {
       "ALMOST READY...",
     ];
     const poll = async () => {
+      if (!mountedRef.current) return;
       setLoadingStatus(messages[Math.min(attempts, messages.length - 1)]);
       attempts++;
       try {
-        const res = await fetch(`${API_URL}/api/v1/status`);
+        const res = await fetch(`${API_URL}/api/v1/audit/stats`);
         if (res.ok) {
-          setLoadingStatus("SYSTEMS ONLINE");
-          setTimeout(() => setReady(true), 600);
+          setTimeout(() => {
+            if (mountedRef.current) setReady(true);
+          }, 600);
           return;
         }
       } catch (_) {}
-      setTimeout(poll, 2000);
+      setTimeout(() => {
+        if (mountedRef.current) poll();
+      }, 2000);
     };
     poll();
   }, []);
@@ -95,12 +108,24 @@ function AppInner() {
     if (!ready) return;
     const token = localStorage.getItem("pantheon_token");
     if (!token) return;
+
     const connect = () => {
+      if (!mountedRef.current) return;
       const ws = new WebSocket(FINAL_WS_URL);
       wsRef.current = ws;
-      ws.onopen = () => setConnected(true);
-      ws.onclose = () => { setConnected(false); setTimeout(connect, 3000); };
+      ws.onopen = () => {
+        if (mountedRef.current) setConnected(true);
+      };
+      ws.onclose = () => {
+        if (!mountedRef.current) return;
+        setConnected(false);
+        // Only reconnect if still mounted
+        setTimeout(() => {
+          if (mountedRef.current) connect();
+        }, 3000);
+      };
       ws.onmessage = (e) => {
+        if (!mountedRef.current) return;
         const event = JSON.parse(e.data);
         setEvents(prev => [event, ...prev].slice(0, 50));
         fetchStats();
@@ -108,7 +133,13 @@ function AppInner() {
       };
     };
     connect();
-    return () => wsRef.current?.close();
+    return () => {
+      if (wsRef.current) {
+        wsRef.current.onclose = null; // Prevent reconnect on intentional close
+        wsRef.current.close();
+        wsRef.current = null;
+      }
+    };
   }, [ready]);
 
   useEffect(() => {
@@ -120,19 +151,29 @@ function AppInner() {
   }, [ready]);
 
   const fetchStats = async () => {
-    const res = await fetch(`${API_URL}/api/v1/audit/stats`);
-    const data = await res.json();
-    setStats(data);
+    try {
+      const res = await fetch(`${API_URL}/api/v1/audit/stats`);
+      const data = await res.json();
+      if (mountedRef.current) setStats(data);
+    } catch (_) {}
   };
 
   const fetchLogs = async () => {
-    const res = await fetch(`${API_URL}/api/v1/audit/logs?limit=50`);
-    const data = await res.json();
-    setLogs(data.logs || []);
+    try {
+      const res = await fetch(`${API_URL}/api/v1/audit/logs?limit=50`);
+      const data = await res.json();
+      if (mountedRef.current) setLogs(data);
+    } catch (_) {}
   };
 
   const handleLogout = () => {
     localStorage.removeItem("pantheon_token");
+    if (wsRef.current) {
+      wsRef.current.onclose = null;
+      wsRef.current.close();
+      wsRef.current = null;
+    }
+    setConnected(false);
     navigate("/login");
   };
 
@@ -140,26 +181,27 @@ function AppInner() {
 
   return (
     <Routes>
-      <Route path="/" element={<LandingPage onEnter={() => {
-        const token = localStorage.getItem("pantheon_token");
-        navigate(token ? "/dashboard" : "/login");
-      }} />} />
+      <Route path="/" element={<LandingPage onEnter={() => navigate("/dashboard")} />} />
+      <Route path="/pricing" element={<PricingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
-      <Route path="/pricing" element={<PricingPage />} />
-      <Route path="/dashboard" element={
-        <ProtectedRoute ready={ready}>
-          <Dashboard
-            events={events}
-            stats={stats}
-            logs={logs}
-            connected={connected}
-            apiUrl={API_URL}
-            onRefresh={() => { fetchStats(); fetchLogs(); }}
-            onLogout={handleLogout}
-          />
-        </ProtectedRoute>
-      } />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute ready={ready}>
+            <Dashboard
+              events={events}
+              stats={stats}
+              logs={logs}
+              connected={connected}
+              apiUrl={API_URL}
+              onRefresh={() => { fetchStats(); fetchLogs(); }}
+              onLogout={handleLogout}
+            />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }

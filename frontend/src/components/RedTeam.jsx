@@ -224,16 +224,20 @@ function RedTeam({ apiUrl, onRefresh }) {
                 </p>
               </div>
               <div className="threat-analysis">
-                <p className="section-label mono">
-                  ◈ THREAT ANALYSIS
-                  {analyzing && <span className="analyzing-dot"> ⋯</span>}
-                </p>
-                {analyzing && (
-                  <p className="analysis-text mono dim">GEMINI ANALYZING ATTACK PATTERN...</p>
-                )}
-                {analysis && !analyzing && (
-                  <p className="analysis-text">{analysis}</p>
-                )}
+                <div className={`analysis-report-header ${result.verdict === "BLOCKED" ? "header-blocked" : "header-allowed"}`}>
+                  <span className="analysis-report-label mono">
+                    ◈ THREAT ANALYSIS{analyzing && <span className="analyzing-dot"> ⋯</span>}
+                  </span>
+                  <span className="analysis-report-badge mono">GEMINI 2.5 FLASH</span>
+                </div>
+                <div className="analysis-report-body">
+                  {analyzing && (
+                    <p className="analysis-text mono dim">GEMINI ANALYZING ATTACK PATTERN...</p>
+                  )}
+                  {analysis && !analyzing && (
+                    <p className="analysis-text">{analysis}</p>
+                  )}
+                </div>
               </div>
             </div>
           )}

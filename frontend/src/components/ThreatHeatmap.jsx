@@ -1,3 +1,4 @@
+import React from "react";
 import PropTypes from "prop-types";
 import "./ThreatHeatmap.css";
 
@@ -69,8 +70,8 @@ function ThreatHeatmap({ logs }) {
 
           {/* Data rows */}
           {ATTACK_TYPES.map(type => (
-            <>
-              <div key={`label-${type.key}`} className="heatmap-cell row-label mono">
+            <React.Fragment key={type.key}>
+              <div className="heatmap-cell row-label mono">
                 {type.label}
               </div>
               {AGENTS.map(agent => {
@@ -94,7 +95,7 @@ function ThreatHeatmap({ logs }) {
                   </div>
                 );
               })}
-            </>
+            </React.Fragment>
           ))}
         </div>
 
