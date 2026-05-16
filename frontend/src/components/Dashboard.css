@@ -53,7 +53,8 @@
 
 .overview-bottom {
   display: grid;
-  grid-template-columns: 1fr 1.4fr 1fr;
+  grid-template-columns: 1.2fr 1fr;
+  grid-template-rows: auto auto;
   gap: 16px;
   align-items: start;
 }
@@ -64,3 +65,16 @@
   gap: 16px;
   min-height: 0;
 }
+
+.panel-title {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+}
+
+.threat-timeline { grid-column: 1; }
+.threat-heatmap  { grid-column: 1; }
+.agent-health    { grid-column: 2; grid-row: 1 / span 2; }

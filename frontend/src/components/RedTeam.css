@@ -14,7 +14,8 @@
   font-size: 20px;
   letter-spacing: 4px;
   color: var(--text-primary);
-  font-weight: 400;
+  font-weight: 700;  /* was 400 */
+  font-family: var(--font-headline);
 }
 
 .redteam-sub {
@@ -176,6 +177,8 @@
   cursor: pointer;
   border-radius: 2px;
   transition: all 0.2s;
+  font-family: var(--font-mono);  /* add this — was missing font */
+  font-weight: 600;
 }
 
 .fire-btn:hover:not(:disabled) {
@@ -375,12 +378,12 @@
 
 .analysis-report-body {
   padding: 12px 14px;
-  background: rgba(57,208,216,0.02);
+  background: var(--bg-secondary);  /* was rgba(57,208,216,0.02) — too subtle */
 }
 
 .analysis-text {
-  font-size: 12px;
-  color: var(--text-secondary);
+  font-size: 13px;  /* was 12px */
+  color: var(--text-primary);  /* was text-secondary — analysis deserves prominence */
   line-height: 1.7;
 }
 

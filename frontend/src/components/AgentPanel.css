@@ -7,8 +7,8 @@
   overflow: hidden;
 }
 
-.agent-panel.full-width {
-  height: calc(100vh - 220px);
+.agent-panel.full-width .conversation {
+  max-height: none;  /* remove cap in full-width mode */
 }
 
 .agent-selector {
@@ -53,11 +53,10 @@
 }
 
 .agent-name {
-  font-family: var(--font-headline);
+  font-family: var(--font-headline);  /* remove duplicate */
   font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
-  font-family: var(--font-headline);
   letter-spacing: 1px;
 }
 
@@ -81,6 +80,7 @@
   flex-direction: column;
   gap: 12px;
   min-height: 200px;
+  max-height: 400px;  /* add this — prevents infinite growth in sidebar */
 }
 
 .conv-empty {
@@ -116,12 +116,14 @@
 .msg-content {
   background: var(--bg-hover);
   border: 1px solid var(--border);
-  padding: 8px 12px;
+  padding: 10px 14px;  /* slightly more breathing room */
   border-radius: 4px;
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.6;  /* was 1.5 */
   color: var(--text-primary);
+  font-family: var(--font-ui);  /* add this — was inheriting mono */
 }
+
 
 .message.user .msg-content {
   background: rgba(77, 157, 224, 0.1);
@@ -162,7 +164,7 @@
   background: var(--bg-primary);
   border: 1px solid var(--border);
   color: var(--text-primary);
-  padding: 8px 12px;
+  padding: 10px 12px;  /* slightly taller */
   font-size: 12px;
   font-family: var(--font-mono);
   border-radius: 2px;
