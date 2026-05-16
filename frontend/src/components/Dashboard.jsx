@@ -70,7 +70,7 @@ export default function Dashboard({ events, stats, logs, connected, apiUrl, onRe
           <RedTeam apiUrl={apiUrl} onRefresh={onRefresh} />
         )}
         {activeTab === "audit" && (
-          <AuditTable logs={logs} onRefresh={onRefresh} />
+          <AuditTable logs={logs} onRefresh={onRefresh} apiUrl={apiUrl} />
         )}
       </main>
     </div>
