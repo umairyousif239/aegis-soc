@@ -13,12 +13,12 @@ router = APIRouter()
 
 @router.get("/logs")
 async def audit_logs(limit: int = 100):
-    logs = await get_audit_logs(limit)
+    logs = get_audit_logs(limit)
     return {"logs": logs}
 
 @router.get("/stats")
 async def audit_stats():
-    stats = await get_stats()
+    stats = get_stats()
     return stats
 
 class QueryRequest(BaseModel):
@@ -26,7 +26,7 @@ class QueryRequest(BaseModel):
 
 @router.post("/query")
 async def query_logs(request: QueryRequest):
-    logs = await get_audit_logs(100)
+    logs = get_audit_logs(100)
 
     log_summary = []
     for log in logs:
@@ -77,7 +77,7 @@ If the logs are empty, say so. Keep your answer under 200 words."""
 
 @router.get("/report/csv")
 async def export_csv():
-    logs = await get_audit_logs(1000)
+    logs = get_audit_logs(1000)
 
     output = io.StringIO()
     writer = csv.writer(output)
