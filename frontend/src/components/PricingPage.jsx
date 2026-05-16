@@ -43,7 +43,7 @@ const PLANS = [
     id: "citadel",
     name: "Citadel",
     price: 499,
-    desc: "For large organizations that need full control, custom policies, and dedicated support.",
+    desc: "For large organizations needing full control, custom policies, and dedicated support.",
     accent: "purple",
     features: [
       "Unlimited AI agents",
