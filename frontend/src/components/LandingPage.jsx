@@ -65,7 +65,7 @@ export default function LandingPage({ onEnter }) {
 
       {/* Hero */}
       <section className="hero">
-        <div className="hero-badge mono">// AI AGENT SECURITY OPERATIONS CENTER</div>
+        <div className="hero-badge mono">— AI AGENT SECURITY OPERATIONS CENTER</div>
         <h1 className="hero-headline">
           Your agents are live.<br />
           <span className="hero-accent">Who's watching them?</span>
@@ -94,7 +94,7 @@ export default function LandingPage({ onEnter }) {
 
       {/* How it works */}
       <section className="how-it-works" id="how-it-works">
-        <div className="section-label mono">// HOW IT WORKS</div>
+        <div className="section-label mono">— HOW IT WORKS</div>
         <h2 className="section-title">Security baked into the pipeline</h2>
         <div className="pipeline">
           <div className="pipeline-step">
@@ -127,7 +127,7 @@ export default function LandingPage({ onEnter }) {
 
       {/* Features */}
       <section className="features" id="features">
-        <div className="section-label mono">// CAPABILITIES</div>
+        <div className="section-label mono">— CAPABILITIES</div>
         <h2 className="section-title">Everything a real SOC needs</h2>
         <div className="features-grid">
           {FEATURES.map(f => (
@@ -142,7 +142,7 @@ export default function LandingPage({ onEnter }) {
 
       {/* CTA */}
       <section className="cta-section">
-        <div className="section-label mono">// READY TO DEPLOY</div>
+        <div className="section-label mono">— READY TO DEPLOY</div>
         <h2 className="cta-title">
           The enterprise AI attack surface<br />is growing. Start watching it.
         </h2>
