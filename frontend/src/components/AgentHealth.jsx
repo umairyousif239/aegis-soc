@@ -39,7 +39,7 @@ function ScoreRing({ score }) {
     "var(--accent-red)";
 
   return (
-    <svg width="72" height="72" className="score-ring">
+    <svg width="72" height="86" className="score-ring">
       <circle cx="36" cy="36" r={r} fill="none" stroke="var(--border)" strokeWidth="4" />
       <circle
         cx="36" cy="36" r={r}
