@@ -46,14 +46,14 @@ Answer this question about the logs concisely and clearly:
 {request.question}
 
 Be specific — reference agent names, counts, risk scores, and timestamps where relevant.
-If the logs are empty, say so. Keep your answer under 150 words."""
+If the logs are empty, say so. Keep your answer under 200 words."""
 
     api_key = os.getenv("GEMINI_API_KEY")
 
     payload = {
         "model": "gemini-2.5-flash",
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 300
+        "max_tokens": 1000
     }
 
     async with httpx.AsyncClient(timeout=30) as client:
