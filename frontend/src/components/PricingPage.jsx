@@ -178,7 +178,7 @@ export default function PricingPage() {
       <footer className="landing-footer">
         <span className="wordmark-text" style={{ fontSize: "14px", letterSpacing: "3px" }}>PANTHEON</span>
         <span className="mono" style={{ fontSize: "11px", color: "var(--text-dim)" }}>
-          Built with Gemini 2.5 Flash + Veea Lobster Trap · TechEx Hackathon 2025
+          Built with Gemini 2.5 Flash + Veea Lobster Trap · Transforming Enterprise Through AI Hackathon 2026
         </span>
       </footer>
     </div>

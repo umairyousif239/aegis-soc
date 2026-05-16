@@ -62,7 +62,7 @@ export default function SignupPage() {
           </p>
         </div>
         <div className="auth-brand-bottom">
-          <span className="auth-brand-tag mono">TECHEX HACKATHON 2025 · GEMINI 2.5 FLASH</span>
+          <span className="auth-brand-tag mono"> TRANSFORMING ENTERPRISE THROUGH AI HACKATHON 2025 · GEMINI 2.5 FLASH</span>
         </div>
       </div>
 

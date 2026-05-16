@@ -375,7 +375,7 @@ export default function LandingPage({ onEnter }) {
             Pricing
           </button>
           <span className="mono" style={{ fontSize: "11px", color: "var(--text-dim)" }}>
-            Built with Gemini 2.5 Flash + Veea Lobster Trap · TechEx Hackathon 2025
+            Built with Gemini 2.5 Flash + Veea Lobster Trap · Transforming Enterprise Through AI Hackathon 2026
           </span>
         </div>
       </footer>
