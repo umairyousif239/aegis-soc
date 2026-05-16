@@ -120,10 +120,9 @@ export default function PricingPage() {
       <div className="plans-grid">
         {PLANS.map(plan => (
           <div key={plan.id} className={`plan-card ${plan.popular ? "popular" : ""} accent-${plan.accent}`}>
-            {plan.popular
-                ? <div className="popular-badge mono">MOST POPULAR</div>
-                : <div className="popular-badge-placeholder" />
-            }
+            {plan.popular && (
+              <div className="popular-badge mono">MOST POPULAR</div>
+            )}
             <div className="plan-header">
               <h2 className="plan-name">{plan.name}</h2>
               <div className="plan-price">
