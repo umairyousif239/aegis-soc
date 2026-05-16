@@ -152,6 +152,7 @@
   flex-direction: column;
   gap: 24px;
   min-height: 0;
+  align-self: start;
 }
 
 .overview-right {
