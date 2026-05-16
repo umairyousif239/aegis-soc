@@ -7,3 +7,4 @@ aiosqlite
 databases
 sqlalchemy
 websockets
+libsql-experimental
