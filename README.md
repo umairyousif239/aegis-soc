@@ -1,5 +1,4 @@
-# ⬡ Pantheon
-### AI Agent Security Operations Center
+![Alt Text](resources/logo/logo.gif)
 
 > Built for the **Transforming Enterprise Through AI Hackathon** on [lablab.ai](https://lablab.ai/ai-hackathons/techex-intelligent-enterprise-solutions-hackathon)
 
