@@ -129,7 +129,7 @@
   display: grid;
   grid-template-columns: 1fr 380px;
   gap: 20px;
-  min-height: 360px;
+  height: 560px;
 }
 
 .overview-bottom {
@@ -150,7 +150,6 @@
   flex-direction: column;
   gap: 24px;
   min-height: 0;
-  align-self: start;
 }
 
 .overview-right {
