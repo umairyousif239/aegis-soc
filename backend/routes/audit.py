@@ -48,7 +48,6 @@ Answer this question about the logs concisely and clearly:
 Be specific — reference agent names, counts, risk scores, and timestamps where relevant.
 If the logs are empty, say so. Keep your answer under 150 words."""
 
-    lobstertrap_url = os.getenv("LOBSTERTRAP_URL")
     api_key = os.getenv("GEMINI_API_KEY")
 
     payload = {
@@ -59,15 +58,12 @@ If the logs are empty, say so. Keep your answer under 150 words."""
 
     async with httpx.AsyncClient(timeout=30) as client:
         res = await client.post(
-            f"{lobstertrap_url}/v1beta/openai/chat/completions",
+            "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
             json=payload,
             headers={
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
                 "Accept-Encoding": "identity",
-                "X-Lobstertrap-Agent-Id": "pantheon-analyst",
-                "X-Lobstertrap-User-Id": "system",
-                "X-Lobstertrap-Declared-Intent": "log_analysis"
             }
         )
         data = res.json()
