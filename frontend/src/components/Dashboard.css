@@ -129,7 +129,6 @@
   display: grid;
   grid-template-columns: 1fr 380px;
   gap: 20px;
-  height: 560px;
 }
 
 .overview-bottom {
