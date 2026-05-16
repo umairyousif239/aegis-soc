@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import LandingPage from "./components/LandingPage";
 import PricingPage from "./components/PricingPage";
+import LoginPage from "./components/LoginPage";
+import SignupPage from "./components/SignupPage";
 import "./App.css";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
@@ -47,6 +49,13 @@ function LoadingScreen({ status }) {
   );
 }
 
+function ProtectedRoute({ children, ready }) {
+  const token = localStorage.getItem("pantheon_token");
+  if (!ready) return null;
+  if (!token) return <Navigate to="/login" replace />;
+  return children;
+}
+
 function AppInner() {
   const [ready, setReady] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState("INITIALIZING SYSTEMS...");
@@ -84,6 +93,8 @@ function AppInner() {
 
   useEffect(() => {
     if (!ready) return;
+    const token = localStorage.getItem("pantheon_token");
+    if (!token) return;
     const connect = () => {
       const ws = new WebSocket(FINAL_WS_URL);
       wsRef.current = ws;
@@ -102,6 +113,8 @@ function AppInner() {
 
   useEffect(() => {
     if (!ready) return;
+    const token = localStorage.getItem("pantheon_token");
+    if (!token) return;
     fetchStats();
     fetchLogs();
   }, [ready]);
@@ -118,22 +131,35 @@ function AppInner() {
     setLogs(data.logs || []);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("pantheon_token");
+    navigate("/login");
+  };
+
   if (!ready) return <LoadingScreen status={loadingStatus} />;
 
   return (
     <Routes>
-      <Route path="/" element={<LandingPage onEnter={() => navigate("/dashboard")} />} />
-      <Route path="/dashboard" element={
-        <Dashboard
-          events={events}
-          stats={stats}
-          logs={logs}
-          connected={connected}
-          apiUrl={API_URL}
-          onRefresh={() => { fetchStats(); fetchLogs(); }}
-        />
-      } />
+      <Route path="/" element={<LandingPage onEnter={() => {
+        const token = localStorage.getItem("pantheon_token");
+        navigate(token ? "/dashboard" : "/login");
+      }} />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
       <Route path="/pricing" element={<PricingPage />} />
+      <Route path="/dashboard" element={
+        <ProtectedRoute ready={ready}>
+          <Dashboard
+            events={events}
+            stats={stats}
+            logs={logs}
+            connected={connected}
+            apiUrl={API_URL}
+            onRefresh={() => { fetchStats(); fetchLogs(); }}
+            onLogout={handleLogout}
+          />
+        </ProtectedRoute>
+      } />
     </Routes>
   );
 }

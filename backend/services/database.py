@@ -1,6 +1,8 @@
 import libsql_experimental as libsql
 import json
 import os
+import secrets
+import bcrypt
 from datetime import datetime, UTC
 
 from backend.state import connected_clients
@@ -28,7 +30,64 @@ def init_db():
             security_meta TEXT DEFAULT '{}'
         )
     """)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT UNIQUE NOT NULL,
+            password_hash TEXT NOT NULL,
+            token TEXT UNIQUE,
+            created_at TEXT NOT NULL
+        )
+    """)
     conn.commit()
+
+    # Seed demo account if it doesn't exist
+    result = conn.execute("SELECT id FROM users WHERE email = ?", ("demo@pantheon.ai",))
+    if not result.fetchone():
+        password_hash = bcrypt.hashpw(b"pantheon2025", bcrypt.gensalt()).decode()
+        token = secrets.token_urlsafe(32)
+        conn.execute("""
+            INSERT INTO users (email, password_hash, token, created_at)
+            VALUES (?, ?, ?, ?)
+        """, ("demo@pantheon.ai", password_hash, token, datetime.now(UTC).isoformat()))
+        conn.commit()
+
+def create_user(email, password):
+    conn = get_conn()
+    result = conn.execute("SELECT id FROM users WHERE email = ?", (email,))
+    if result.fetchone():
+        return None, "Email already registered"
+    password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+    token = secrets.token_urlsafe(32)
+    conn.execute("""
+        INSERT INTO users (email, password_hash, token, created_at)
+        VALUES (?, ?, ?, ?)
+    """, (email, password_hash, token, datetime.now(UTC).isoformat()))
+    conn.commit()
+    return token, None
+
+def login_user(email, password):
+    conn = get_conn()
+    result = conn.execute(
+        "SELECT password_hash, token FROM users WHERE email = ?", (email,)
+    )
+    row = result.fetchone()
+    if not row:
+        return None, "Invalid email or password"
+    password_hash, token = row
+    if not bcrypt.checkpw(password.encode(), password_hash.encode()):
+        return None, "Invalid email or password"
+    return token, None
+
+def verify_token(token):
+    conn = get_conn()
+    result = conn.execute(
+        "SELECT id, email FROM users WHERE token = ?", (token,)
+    )
+    row = result.fetchone()
+    if not row:
+        return None
+    return {"id": row[0], "email": row[1]}
 
 async def broadcast_event(event: dict):
     dead = []

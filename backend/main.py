@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import asyncio
 import os
 
+from backend.routes.auth import router as auth_router
 from backend.routes.agents import router as agents_router
 from backend.routes.audit import router as audit_router
 from backend.routes.redteam import router as redteam_router
@@ -31,6 +32,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(auth_router, prefix="/api/v1/auth")
 app.include_router(agents_router, prefix="/api/v1/agents")
 app.include_router(audit_router, prefix="/api/v1/audit")
 app.include_router(redteam_router, prefix="/api/v1/redteam")

@@ -4,9 +4,9 @@ import LiveFeed from "./LiveFeed";
 import AgentPanel from "./AgentPanel";
 import AuditTable from "./AuditTable";
 import RedTeam from "./RedTeam";
+import Header from "./Header";
 import PropTypes from "prop-types";
 import "./Dashboard.css";
-import "./Header.css";
 
 const NAV_ITEMS = [
   { id: "overview", label: "OVERVIEW" },
@@ -15,43 +15,27 @@ const NAV_ITEMS = [
   { id: "audit", label: "AUDIT LOG" },
 ];
 
-export default function Dashboard({ events, stats, logs, connected, apiUrl, onRefresh }) {
+export default function Dashboard({ events, stats, logs, connected, apiUrl, onRefresh, onLogout }) {
   const [activeTab, setActiveTab] = useState("overview");
 
   return (
     <div className="dashboard">
-      {/* Header */}
-      <header className="dashboard-header">
-        <div className="header-left">
-          <div className="logo">
-            <span className="logo-icon">⬡</span>
-            <span className="logo-text">PANTHEON</span>
-            <span className="logo-sub">AI SECURITY OPERATIONS CENTER</span>
-          </div>
-        </div>
-        <nav className="header-nav">
-          {NAV_ITEMS.map(item => (
-            <button
-              key={item.id}
-              className={`nav-btn ${activeTab === item.id ? "active" : ""}`}
-              onClick={() => setActiveTab(item.id)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
-        <div className="header-right">
-          <div className={`connection-status ${connected ? "connected" : "disconnected"}`}>
-            <span className="status-dot" />
-            {connected ? "LIVE" : "OFFLINE"}
-          </div>
-        </div>
-      </header>
+      <Header connected={connected} onLogout={onLogout} />
 
-      {/* Stats Bar */}
+      <nav className="dashboard-nav">
+        {NAV_ITEMS.map(item => (
+          <button
+            key={item.id}
+            className={`nav-btn ${activeTab === item.id ? "active" : ""}`}
+            onClick={() => setActiveTab(item.id)}
+          >
+            {item.label}
+          </button>
+        ))}
+      </nav>
+
       <StatsBar stats={stats} />
 
-      {/* Main Content */}
       <main className="dashboard-main">
         {activeTab === "overview" && (
           <div className="overview-grid">
@@ -78,10 +62,11 @@ export default function Dashboard({ events, stats, logs, connected, apiUrl, onRe
 }
 
 Dashboard.propTypes = {
-    events: PropTypes.bool.isRequired,
-    stats: PropTypes.bool.isRequired,
-    logs: PropTypes.bool.isRequired,
-    connected: PropTypes.bool.isRequired,
-    apiUrl: PropTypes.bool.isRequired,
-    onRefresh: PropTypes.bool.isRequired,
-}
+  events: PropTypes.array.isRequired,
+  stats: PropTypes.object.isRequired,
+  logs: PropTypes.array.isRequired,
+  connected: PropTypes.bool.isRequired,
+  apiUrl: PropTypes.string.isRequired,
+  onRefresh: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired,
+};
