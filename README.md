@@ -1,7 +1,7 @@
 # ⬡ Pantheon
 ### AI Agent Security Operations Center
 
-> Built for the **TechEx Intelligent Enterprise Solutions Hackathon** on [lablab.ai](https://lablab.ai)
+> Built for the **Transforming Enterprise Through AI Hackathon** on [lablab.ai](https://lablab.ai/ai-hackathons/techex-intelligent-enterprise-solutions-hackathon)
 
 **Pantheon** monitors, inspects, and red-teams enterprise AI agents in real time. Every message sent to an agent is routed through a deep-packet inspection proxy (Lobster Trap), scored for risk, and logged — giving security teams full visibility into what their AI agents are doing and why.
 

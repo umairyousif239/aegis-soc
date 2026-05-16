@@ -162,10 +162,10 @@ function AppInner() {
     try {
       const res = await fetch(`${API_URL}/api/v1/audit/logs?limit=50`);
       const data = await res.json();
-      if (mountedRef.current) setLogs(data);
+      if (mountedRef.current) setLogs(Array.isArray(data) ? data : (data.logs ?? []));
     } catch (_) {}
   };
-
+  
   const handleLogout = () => {
     localStorage.removeItem("pantheon_token");
     if (wsRef.current) {
