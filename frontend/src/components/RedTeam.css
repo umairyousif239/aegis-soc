@@ -350,7 +350,7 @@
   animation: pulse 0.8s infinite;
 }
 
-
+.feed-empty {
   padding: 40px;
   text-align: center;
   color: var(--text-dim);
