@@ -259,3 +259,20 @@
 .user-col   { color: var(--text-secondary); }
 .intent-col { color: var(--text-secondary); }
 .message-col { color: var(--text-primary); max-width: 300px; }
+
+.export-btn {
+  background: transparent;
+  border: 1px solid var(--accent-green);
+  color: var(--accent-green);
+  padding: 6px 16px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.export-btn:hover { background: rgba(63, 185, 80, 0.1); }
+.export-btn.exporting { opacity: 0.5; cursor: not-allowed; }

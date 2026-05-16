@@ -1,9 +1,13 @@
 from fastapi import APIRouter
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from backend.services.database import get_audit_logs, get_stats
+from datetime import datetime, UTC
 import os
 import json
 import httpx
+import csv
+import io
 
 router = APIRouter()
 
@@ -70,3 +74,39 @@ If the logs are empty, say so. Keep your answer under 200 words."""
         answer = data["choices"][0]["message"]["content"]
 
     return {"answer": answer}
+
+@router.get("/report/csv")
+async def export_csv():
+    logs = await get_audit_logs(1000)
+
+    output = io.StringIO()
+    writer = csv.writer(output)
+
+    writer.writerow(["PANTHEON — AI AGENT SECURITY OPERATIONS CENTER", "", "", "", "", "", ""])
+    writer.writerow([f"Report Generated: {datetime.now(UTC).strftime('%Y-%m-%d %H:%M:%S UTC')}", "", "", "", "", "", ""])
+    writer.writerow(["Total Interactions", len(logs), "", "", "", "", ""])
+    writer.writerow(["Total Blocked", sum(1 for l in logs if l["blocked"]), "", "", "", "", ""])
+    avg_risk = sum(l["risk_score"] for l in logs) / len(logs) if logs else 0
+    writer.writerow(["Average Risk Score", f"{avg_risk:.3f}", "", "", "", "", ""])
+    writer.writerow(["", "", "", "", "", "", ""])
+    writer.writerow(["TIMESTAMP", "AGENT", "USER", "VERDICT", "RISK SCORE", "INTENT", "MESSAGE"])
+
+    for log in logs:
+        writer.writerow([
+            log["timestamp"],
+            log["agent_id"].upper(),
+            log["user_id"],
+            "BLOCKED" if log["blocked"] else "ALLOWED",
+            f"{log['risk_score']:.3f}",
+            log["intent"].upper(),
+            log["message"][:200]
+        ])
+
+    output.seek(0)
+    filename = f"pantheon-audit-{datetime.now(UTC).strftime('%Y%m%d-%H%M%S')}.csv"
+
+    return StreamingResponse(
+        io.BytesIO(output.getvalue().encode()),
+        media_type="text/csv",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )

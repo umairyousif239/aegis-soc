@@ -8,6 +8,7 @@ function AuditTable({ logs, apiUrl }) {
   const [query, setQuery] = useState("");
   const [answer, setAnswer] = useState(null);
   const [querying, setQuerying] = useState(false);
+  const [exporting, setExporting] = useState(false);
 
   const filtered = logs.filter(log => {
     const matchesFilter =
@@ -37,6 +38,23 @@ function AuditTable({ logs, apiUrl }) {
       setAnswer("Failed to query logs. Please try again.");
     }
     setQuerying(false);
+  };
+
+  const exportReport = async () => {
+    setExporting(true);
+    try {
+      const res = await fetch(`${apiUrl}/api/v1/audit/report/csv`);
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `pantheon-audit-${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error("Export failed:", e);
+    }
+    setExporting(false);
   };
 
   const EXAMPLE_QUERIES = [
@@ -98,6 +116,13 @@ function AuditTable({ logs, apiUrl }) {
           <p className="audit-sub mono">{filtered.length} ENTRIES</p>
         </div>
         <div className="audit-controls">
+          <button
+            className={`export-btn mono ${exporting ? "exporting" : ""}`}
+            onClick={exportReport}
+            disabled={exporting}
+          >
+            {exporting ? "EXPORTING..." : "⬇ EXPORT CSV"}
+          </button>
           <input
             type="text"
             placeholder="SEARCH LOGS..."
