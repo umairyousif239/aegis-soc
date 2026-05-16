@@ -212,3 +212,7 @@
   align-items: center;
   gap: 24px;
 }
+
+.popular-badge-placeholder {
+  height: 12px;
+}
