@@ -207,7 +207,7 @@ CREATE TABLE users (
 
 ## How Pantheon Differentiates
 
-Most agent monitoring tools (e.g. Vela) inspect traffic passively via webhooks or only on report generation. Pantheon routes **all** agent traffic through Lobster Trap at the proxy level, meaning threats are caught before the agent responds — not after. The built-in red team simulator lets security teams actively probe their own agents rather than waiting for real attacks.
+Most agent monitoring tools inspect traffic passively via webhooks or only on report generation. Pantheon routes **all** agent traffic through Lobster Trap at the proxy level, meaning threats are caught before the agent responds — not after. The built-in red team simulator lets security teams actively probe their own agents rather than waiting for real attacks.
 
 ---
 
