@@ -43,11 +43,14 @@ function RedTeam({ apiUrl, onRefresh }) {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState([]);
+  const [analysis, setAnalysis] = useState(null);
+  const [analyzing, setAnalyzing] = useState(false);
 
   const runAttack = async () => {
     if (!selectedAttack || loading) return;
     setLoading(true);
     setResult(null);
+    setAnalysis(null);
 
     try {
       const res = await fetch(
@@ -63,6 +66,25 @@ function RedTeam({ apiUrl, onRefresh }) {
         timestamp: new Date().toLocaleTimeString()
       }, ...prev].slice(0, 20));
       onRefresh();
+
+      // Fetch threat analysis
+      setAnalyzing(true);
+      try {
+        const aRes = await fetch(`${apiUrl}/api/v1/redteam/analyze`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            attack: ATTACKS[selectedAttack],
+            result: data,
+            agent_id: selectedAgent
+          })
+        });
+        const aData = await aRes.json();
+        setAnalysis(aData.analysis);
+      } catch (e) {
+        console.error("Analysis failed:", e);
+      }
+      setAnalyzing(false);
     } catch (e) {
       console.error("Attack execution failed:", e);
       setResult({ error: "Connection failed", details: e.message });
@@ -200,6 +222,18 @@ function RedTeam({ apiUrl, onRefresh }) {
                 <p className="response-text">
                   {result.response?.reply || "—"}
                 </p>
+              </div>
+              <div className="threat-analysis">
+                <p className="section-label mono">
+                  ◈ THREAT ANALYSIS
+                  {analyzing && <span className="analyzing-dot"> ⋯</span>}
+                </p>
+                {analyzing && (
+                  <p className="analysis-text mono dim">GEMINI ANALYZING ATTACK PATTERN...</p>
+                )}
+                {analysis && !analyzing && (
+                  <p className="analysis-text">{analysis}</p>
+                )}
               </div>
             </div>
           )}

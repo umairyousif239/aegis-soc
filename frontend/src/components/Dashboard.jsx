@@ -5,6 +5,9 @@ import AgentPanel from "./AgentPanel";
 import AuditTable from "./AuditTable";
 import RedTeam from "./RedTeam";
 import Header from "./Header";
+import ThreatHeatmap from "./ThreatHeatmap";
+import ThreatTimeline from "./ThreatTimeline";
+import AgentHealth from "./AgentHealth";
 import PropTypes from "prop-types";
 import "./Dashboard.css";
 
@@ -20,7 +23,7 @@ export default function Dashboard({ events, stats, logs, connected, apiUrl, onRe
 
   return (
     <div className="dashboard">
-      <Header connected={connected} onLogout={onLogout} />
+      <Header connected={connected} onLogout={onLogout} avgRisk={stats?.avg_risk} />
 
       <nav className="dashboard-nav">
         {NAV_ITEMS.map(item => (
@@ -38,12 +41,19 @@ export default function Dashboard({ events, stats, logs, connected, apiUrl, onRe
 
       <main className="dashboard-main">
         {activeTab === "overview" && (
-          <div className="overview-grid">
-            <div className="overview-left">
-              <LiveFeed events={events} />
+          <div className="overview-layout">
+            <div className="overview-top">
+              <div className="overview-left">
+                <LiveFeed events={events} />
+              </div>
+              <div className="overview-right">
+                <AgentPanel apiUrl={apiUrl} onRefresh={onRefresh} />
+              </div>
             </div>
-            <div className="overview-right">
-              <AgentPanel apiUrl={apiUrl} onRefresh={onRefresh} />
+            <div className="overview-bottom">
+              <ThreatTimeline logs={logs} />
+              <ThreatHeatmap logs={logs} />
+              <AgentHealth logs={logs} />
             </div>
           </div>
         )}

@@ -322,7 +322,35 @@
   color: var(--text-dim);
 }
 
-.feed-empty {
+.threat-analysis {
+  padding: 12px;
+  border-top: 1px solid var(--border);
+  background: rgba(57, 208, 216, 0.03);
+}
+
+.threat-analysis .section-label {
+  color: var(--accent-cyan);
+  margin-bottom: 8px;
+}
+
+.analysis-text {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.analysis-text.mono.dim {
+  color: var(--text-dim);
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.analyzing-dot {
+  color: var(--accent-cyan);
+  animation: pulse 0.8s infinite;
+}
+
+
   padding: 40px;
   text-align: center;
   color: var(--text-dim);

@@ -119,12 +119,33 @@
   padding: 24px;
 }
 
+.overview-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.overview-top {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 20px;
+  height: calc(100vh - 240px);
+  min-height: 360px;
+}
+
+.overview-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+  gap: 16px;
+}
+
 .overview-grid {
   display: grid;
   grid-template-columns: 1fr 380px;
   gap: 24px;
   height: calc(100vh - 160px);
 }
+
 
 .overview-left {
   display: flex;

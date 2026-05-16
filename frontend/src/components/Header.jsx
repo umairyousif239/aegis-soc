@@ -1,7 +1,16 @@
 import PropTypes from "prop-types";
 import "./Header.css";
 
-function Header({ connected, onLogout }) {
+function getThreatLevel(avgRisk) {
+  if (avgRisk >= 0.75) return { label: "CRITICAL", color: "#f85149", cls: "critical" };
+  if (avgRisk >= 0.5)  return { label: "HIGH",     color: "#e3b341", cls: "high" };
+  if (avgRisk >= 0.25) return { label: "ELEVATED", color: "#bc8cff", cls: "elevated" };
+  return { label: "LOW", color: "#3fb950", cls: "low" };
+}
+
+function Header({ connected, onLogout, avgRisk }) {
+  const threat = getThreatLevel(avgRisk || 0);
+
   return (
     <header className="header">
       <div className="header-left">
@@ -16,6 +25,10 @@ function Header({ connected, onLogout }) {
 
       <div className="header-right">
         <div className="header-meta mono">
+          <div className={`threat-badge mono threat-${threat.cls}`} style={{ borderColor: threat.color, color: threat.color }}>
+            <span className="threat-pulse" style={{ background: threat.color }}></span>
+            THREAT <span style={{ marginLeft: 4 }}>{threat.label}</span>
+          </div>
           <span className="meta-item">
             LOBSTER TRAP <span className="accent-green">ACTIVE</span>
           </span>
@@ -60,6 +73,7 @@ function Header({ connected, onLogout }) {
 Header.propTypes = {
   connected: PropTypes.bool.isRequired,
   onLogout: PropTypes.func.isRequired,
+  avgRisk: PropTypes.number,
 };
 
 export default Header;
