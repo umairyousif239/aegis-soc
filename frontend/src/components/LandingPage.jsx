@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
 
@@ -182,3 +183,7 @@ export default function LandingPage({ onEnter }) {
     </div>
   );
 }
+
+LandingPage.propTypes = {
+  onEnter: PropTypes.func.isRequired,
+};
