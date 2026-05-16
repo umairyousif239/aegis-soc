@@ -1,11 +1,6 @@
 import "./StatsBar.css";
 import PropTypes from "prop-types";
 
-function getTrend(value, prev) {
-  if (!prev || prev === 0) return null;
-  return value > prev ? "up" : value < prev ? "down" : null;
-}
-
 function StatsBar({ stats }) {
   const blockedRate = stats.total > 0
     ? ((stats.blocked / stats.total) * 100).toFixed(1)
