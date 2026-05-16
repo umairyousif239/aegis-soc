@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
 
@@ -169,13 +168,12 @@ export default function LandingPage({ onEnter }) {
       <footer className="landing-footer">
         <span className="wordmark-text" style={{ fontSize: "14px", letterSpacing: "3px" }}>PANTHEON</span>
         <div style={{ display: "flex", gap: "32px", alignItems: "center" }}>
-          
-            href="/pricing"
-            onClick={(e) => { e.preventDefault(); navigate("/pricing"); }}
-            style={{ fontFamily: "var(--font-ui)", fontSize: "12px", color: "var(--text-secondary)", textDecoration: "none" }}
-          <a>
-            Pricing
-          </a>
+            <button
+            onClick={() => navigate("/pricing")}
+            style={{ fontFamily: "var(--font-ui)", fontSize: "12px", color: "var(--text-secondary)", textDecoration: "none", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+            >
+                Pricing
+            </button>
           <span className="mono" style={{ fontSize: "11px", color: "var(--text-dim)" }}>
             Built with Gemini 2.5 Flash + Veea Lobster Trap · TechEx Hackathon 2025
           </span>
@@ -184,7 +182,3 @@ export default function LandingPage({ onEnter }) {
     </div>
   );
 }
-
-LandingPage.propTypes = {
-  onEnter: PropTypes.func.isRequired,
-};
